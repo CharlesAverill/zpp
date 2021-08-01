@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++   -Wall -std=c++14 -g -D_DEBUG_ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/SFML_example.dir/src/main.cpp.o  -o SFML_example  -Wl,-rpath,/usr/local/lib /usr/local/lib/libtmxlite.dylib 

@@ -6,7 +6,6 @@
 #define ZPP_GAMEMANAGER_H
 
 #include <map>
-#include <functional>
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
@@ -26,12 +25,17 @@ class GameManager {
     RenderWindow *window;
     View *view;
 
+    string map_collection;
+    Vector2i *map_index;
     Map *current_screen;
 
     Link *link;
 
     void input();
-    bool check_collision(string directino);
+    bool check_collision(string direction);
+
+    void screen_change(string direction);
+    void load_screen();
 public:
     GameManager();
     void init_window(int width, int height);

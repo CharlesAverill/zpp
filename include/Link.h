@@ -38,9 +38,12 @@ public:
     int get_facing_int();
     Sprite get_sprite();
 
+    // Setters
+    void set_position(Vector2f new_position);
+
     // Control
     void face(std::string new_facing);
-    Vector2f get_next_position(std::string direction);
+    std::vector<Vector2f> get_next_corners(std::string direction);
     void move();
 };
 

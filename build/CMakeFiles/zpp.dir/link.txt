@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -Wall -std=c++14 -g -D_DEBUG_ -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.0.sdk -mmacosx-version-min=10.15 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/zpp.dir/src/main.cpp.o -o zpp  -Wl,-rpath,/usr/local/lib /usr/local/lib/libtmxlite.dylib 

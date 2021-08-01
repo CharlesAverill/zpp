@@ -93,32 +93,41 @@ void Link::face(std::string newFacing) {
     }
 }
 
-Vector2f Link::get_next_position(std::string direction) {
-    face(direction);
+std::vector<Vector2f> Link::get_next_corners(std::string direction) {
+    // Get the positions of the four corner's of link's sprite after the next move
 
-    Vector2f offset(0, 0);
+    std::vector<Vector2f> corners;
+
+    face(direction);
     switch(facing){
         case 0: // Up
-            offset.y = -8;
             last_movement = new Vector2f(0, -1 * move_speed->y);
             break;
         case 2: // Down
-            offset.y = 8;
             last_movement = new Vector2f(0, move_speed->y);
             break;
         case 1: // Left
-            offset.x = -7;
             last_movement = new Vector2f(-1 * move_speed->x, 0);
             break;
         case 3: // Right
-            offset.x = 7;
             last_movement = new Vector2f(move_speed->x, 0);
             break;
     }
 
-    return *last_movement + sprite.getPosition() + offset;
+    Vector2f sprite_pos = *last_movement + sprite.getPosition();
+
+    corners.push_back(Vector2f(sprite_pos.x - 6, sprite_pos.y - 5)); // TL
+    corners.push_back(Vector2f(sprite_pos.x + 6, sprite_pos.y - 5)); // TR
+    corners.push_back(Vector2f(sprite_pos.x - 6, sprite_pos.y + 6)); // BL
+    corners.push_back(Vector2f(sprite_pos.x + 6, sprite_pos.y + 6)); // BR
+
+    return corners;
 }
 
 void Link::move(){
     sprite.move(*last_movement);
+}
+
+void Link::set_position(Vector2f new_position) {
+    sprite.setPosition(new_position);
 }
