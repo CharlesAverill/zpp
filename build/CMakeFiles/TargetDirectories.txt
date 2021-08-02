@@ -1,7 +1,0 @@
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/install/local.dir
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/install/strip.dir
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/install.dir
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/list_install_components.dir
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/rebuild_cache.dir
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/edit_cache.dir
-/Users/matthewaverill/CLionProjects/zpp/build/CMakeFiles/SFML_example.dir
