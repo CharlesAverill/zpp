@@ -130,3 +130,25 @@ void Link::move(){
 void Link::set_position(Vector2f new_position) {
     sprite.setPosition(new_position);
 }
+
+void Link::update_sprite(int duration) {
+    if(is_walking){
+        int sprite_offset = duration > 10;
+        switch(facing){
+            case 0:
+                sprite.setTexture(texture_map[4 + sprite_offset]);
+                break;
+            case 1:
+                sprite.setTexture(texture_map[2 + sprite_offset]);
+                horizontal_mirror = true;
+                break;
+            case 2:
+                sprite.setTexture(texture_map[sprite_offset]);
+                break;
+            case 3:
+                sprite.setTexture(texture_map[2 + sprite_offset]);
+                horizontal_mirror = true;
+                break;
+        }
+    }
+}

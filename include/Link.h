@@ -32,6 +32,8 @@ public:
     Link();
     Link(Vector2f pos, std::string fac);
 
+    bool is_walking;
+
     // Getters
     Vector2f get_position();
     std::string get_facing();
@@ -43,6 +45,7 @@ public:
 
     // Control
     void face(std::string new_facing);
+    void update_sprite(int duration);
     std::vector<Vector2f> get_next_corners(std::string direction);
     void move();
 };

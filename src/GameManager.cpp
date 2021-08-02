@@ -10,6 +10,7 @@ const bool ENABLE_DEBUG = false;
 
 GameManager::GameManager() {
     link = new Link(Vector2f(128.f, 88.f), "D");
+    held_duration = 0;
 
     map_collection = "overworld";
     is_underground = false;
@@ -73,7 +74,19 @@ void GameManager::input() {
     }
 
     if(!face_move.empty()) {
-        link->face(face_move);
+        link->is_walking = true;
+        string link_facing = link->get_facing();
+        if(link_facing != face_move){
+            link->face(face_move);
+        } else if(link_facing == held_direction){
+            held_duration++;
+            if(held_duration > 20){
+                held_duration = 0;
+            }
+            link->update_sprite(held_duration);
+        }
+        held_direction = face_move;
+
         int collision = check_collision(face_move);
         switch(collision){
             case 0:
@@ -91,6 +104,10 @@ void GameManager::input() {
             default:
                 break;
         }
+    } else {
+        held_direction = "";
+        held_duration = 0;
+        link->is_walking = false;
     }
 
     if(!is_underground){

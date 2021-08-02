@@ -31,6 +31,8 @@ class GameManager {
     Map *current_screen;
 
     Link *link;
+    string held_direction;
+    int held_duration;
 
     void input();
     int check_collision(string direction);
