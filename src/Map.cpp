@@ -6,6 +6,8 @@
 
 Map::Map(std::string map_path) {
     tmx::Map temp_map;
+    door_gon = nullptr;
+
     if(temp_map.load(map_path)){
         map = &temp_map;
 
@@ -24,8 +26,9 @@ Map::Map(std::string map_path) {
                         collision_gons.emplace_back(Polygon(object.getName(), object.getPoints(), object.getPosition()));
                     }
                 } else if(layer->getName() == "Doors"){
-                    for(const auto& object : objects){
-                        door_gons.emplace_back(Polygon(object.getName(), object.getPoints(), object.getPosition()));
+                    if(!objects.empty()){
+                        auto object = objects[0];
+                        door_gon = new Polygon(object.getName(), object.getPoints(), object.getPosition());
                     }
                 }
             }
@@ -41,4 +44,8 @@ MapLayer *Map::get_render_layer() {
 
 std::vector<Polygon> Map::get_collision_gons() {
     return collision_gons;
+}
+
+Polygon *Map::get_door_gon() {
+    return door_gon;
 }

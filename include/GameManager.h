@@ -26,16 +26,17 @@ class GameManager {
     View *view;
 
     string map_collection;
+    bool is_underground;
     Vector2i *map_index;
     Map *current_screen;
 
     Link *link;
 
     void input();
-    bool check_collision(string direction);
+    int check_collision(string direction);
 
     void screen_change(string direction);
-    void load_screen();
+    void load_screen(bool switch_underground);
 public:
     GameManager();
     void init_window(int width, int height);

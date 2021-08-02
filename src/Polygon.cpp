@@ -4,11 +4,12 @@
 
 #include "Polygon.h"
 
-Polygon::Polygon(string n, vector<tmx::Vector2f> points_v, tmx::Vector2f position) {
+Polygon::Polygon(string n, vector<tmx::Vector2f> points_v, tmx::Vector2f pos) {
     name = n;
+    position = new sf::Vector2f(pos.x, pos.y);
     for(int i = 0; i < points_v.size(); i++){
-        points_v[i].x += position.x;
-        points_v[i].y += position.y;
+        points_v[i].x += pos.x;
+        points_v[i].y += pos.y;
     }
     points = points_v;
 }
@@ -58,4 +59,8 @@ string Polygon::get_name() {
 
 vector<tmx::Vector2f> Polygon::get_points() {
     return points;
+}
+
+sf::Vector2f *Polygon::get_position() {
+    return position;
 }

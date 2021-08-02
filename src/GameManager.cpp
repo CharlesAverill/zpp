@@ -12,8 +12,9 @@ GameManager::GameManager() {
     link = new Link(Vector2f(128.f, 88.f), "D");
 
     map_collection = "overworld";
+    is_underground = false;
     map_index = new Vector2i(7, 7);
-    load_screen();
+    load_screen(false);
 }
 
 void GameManager::init_window(int width, int height) {
@@ -54,15 +55,6 @@ void GameManager::game_loop() {
             draw_collision_boxes(window, current_screen);
         }
         window->display();
-
-        Vector2f link_position = link->get_position();
-        if(link_position.y < 0){
-            screen_change("U");
-            link->set_position(Vector2f(link_position.x, 176.f));
-        } else if(link_position.y > 176){
-            screen_change("D");
-            link->set_position(Vector2f(link_position.x, 0.f));
-        }
     }
 }
 
@@ -72,37 +64,77 @@ void GameManager::input() {
 
     if(Keyboard::isKeyPressed(Keyboard::W)){
         face_move = "U";
-    } else if(Keyboard::isKeyPressed(Keyboard::A)){
-        face_move = "L";
     } else if(Keyboard::isKeyPressed(Keyboard::S)){
         face_move = "D";
+    } else if(Keyboard::isKeyPressed(Keyboard::A)){
+        face_move = "L";
     } else if(Keyboard::isKeyPressed(Keyboard::D)){
         face_move = "R";
     }
 
     if(!face_move.empty()) {
         link->face(face_move);
-        if (!check_collision(face_move)) {
-            link->move();
+        int collision = check_collision(face_move);
+        switch(collision){
+            case 0:
+                link->move();
+                break;
+            case 2:
+                screen_change("DOOR");
+                if(is_underground){
+                    link->set_position(Vector2f(128.f, 168.f));
+                } else {
+                    Vector2f *door_pos = current_screen->get_door_gon()->get_position();
+                    link->set_position(Vector2f(door_pos->x + 8.f, door_pos->y + 16.f));
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    if(!is_underground){
+        Vector2f link_position = link->get_position();
+        if(link_position.y - 8.f < 0){
+            screen_change("U");
+            link->set_position(Vector2f(link_position.x, 168.f));
+        } else if(link_position.y + 8.f > 176){
+            screen_change("D");
+            link->set_position(Vector2f(link_position.x, 8.f));
         }
     }
 }
 
-bool GameManager::check_collision(string direction) {
+int GameManager::check_collision(string direction) {
+    /*
+     * 0: No collision
+     * 1: Wall collision
+     * 2: Door collision
+     */
     vector<Vector2f> next_pos = link->get_next_corners(direction);
 
+    // Check wall collision
     for(Polygon collision_gon : current_screen->get_collision_gons()){
         for(Vector2f sprite_corner : next_pos){
             if(collision_gon.contains(sprite_corner)){
-                return true;
+                return 1;
             }
         }
     }
 
-    return false;
+    // Check door collision
+    Polygon *door_gon = current_screen->get_door_gon();
+    for(Vector2f sprite_corner : next_pos){
+        if(door_gon != nullptr && door_gon->contains(sprite_corner)){
+            return 2;
+        }
+    }
+
+    return 0;
 }
 
 void GameManager::screen_change(string direction) {
+    bool switch_underground = false;
     if(direction == "U"){
         map_index->y -= 1;
     } else if(direction == "D"){
@@ -111,19 +143,28 @@ void GameManager::screen_change(string direction) {
         map_index->x -= 1;
     } else if(direction == "R"){
         map_index->x += 1;
+    } else if(direction == "DOOR"){
+        switch_underground = true;
     }
 
     if(map_index->x < 0 || map_index->y < 0){
         throw std::runtime_error("Map Index out of bounds");
     }
 
-    load_screen();
+    load_screen(switch_underground);
 }
 
-void GameManager::load_screen() {
+void GameManager::load_screen(bool switch_underground) {
     try{
-        current_screen = new Map(tilemaps_prefix + map_collection +
-                                 "/" + to_string(map_index->x) + "_" + to_string(map_index->y) + ".tmx");
+        string map_path = tilemaps_prefix + map_collection + "/" + to_string(map_index->x) + "_" + to_string(map_index->y);
+        if(switch_underground && !is_underground){
+            map_path += "_door";
+            is_underground = true;
+        } else {
+            is_underground = false;
+        }
+        map_path += ".tmx";
+        current_screen = new Map(map_path);
     } catch(std::runtime_error){
         current_screen = nullptr;
         cerr << "Screen " << map_collection + "/" << map_index->x << "_" << map_index->y << ".tmx" << endl;

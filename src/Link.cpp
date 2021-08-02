@@ -98,7 +98,6 @@ std::vector<Vector2f> Link::get_next_corners(std::string direction) {
 
     std::vector<Vector2f> corners;
 
-    face(direction);
     switch(facing){
         case 0: // Up
             last_movement = new Vector2f(0, -1 * move_speed->y);
@@ -116,10 +115,10 @@ std::vector<Vector2f> Link::get_next_corners(std::string direction) {
 
     Vector2f sprite_pos = *last_movement + sprite.getPosition();
 
-    corners.push_back(Vector2f(sprite_pos.x - 6, sprite_pos.y - 5)); // TL
-    corners.push_back(Vector2f(sprite_pos.x + 6, sprite_pos.y - 5)); // TR
-    corners.push_back(Vector2f(sprite_pos.x - 6, sprite_pos.y + 6)); // BL
-    corners.push_back(Vector2f(sprite_pos.x + 6, sprite_pos.y + 6)); // BR
+    corners.push_back(Vector2f(sprite_pos.x - 6.5, sprite_pos.y)); // TL
+    corners.push_back(Vector2f(sprite_pos.x + 6.5, sprite_pos.y)); // TR
+    corners.push_back(Vector2f(sprite_pos.x - 6.5, sprite_pos.y + 6)); // BL
+    corners.push_back(Vector2f(sprite_pos.x + 6.5, sprite_pos.y + 6)); // BR
 
     return corners;
 }

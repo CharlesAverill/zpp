@@ -14,12 +14,13 @@ class Map {
 
     MapLayer *render_layer;
     std::vector<Polygon> collision_gons;
-    std::vector<Polygon> door_gons;
+    Polygon *door_gon;
 public:
     Map(std::string map_path);
 
     MapLayer *get_render_layer();
     std::vector<Polygon> get_collision_gons();
+    Polygon *get_door_gon();
 };
 
 

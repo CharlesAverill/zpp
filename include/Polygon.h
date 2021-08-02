@@ -17,14 +17,16 @@ using namespace std;
 class Polygon {
     string name;
     vector<tmx::Vector2f> points;
+    sf::Vector2f *position;
     float angle_2D(tmx::Vector2f point1, tmx::Vector2f point2);
 public:
     ~Polygon()=default;
-    Polygon(string n, vector<tmx::Vector2f> points_v, tmx::Vector2f position);
+    Polygon(string n, vector<tmx::Vector2f> points_v, tmx::Vector2f pos);
 
     bool contains(sf::Vector2f point);
     string get_name();
     vector<tmx::Vector2f> get_points();
+    sf::Vector2f *get_position();
 };
 
 

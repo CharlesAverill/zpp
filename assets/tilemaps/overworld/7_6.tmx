@@ -19,13 +19,13 @@
  </layer>
  <objectgroup id="2" name="Collision">
   <object id="1" x="0" y="64">
-   <polygon points="0,0 32,-32 144,-32 160,-16 176,-32 224,-32 256,0 256,-64 0,-64"/>
+   <polygon points="0,0 32,-32 144,-32 144,-16 176,-16 176,-32 224,-32 256,0 256,-64 0,-64"/>
   </object>
   <object id="2" x="0" y="112">
    <polygon points="0,0 0,64 112,64 112,32 32,32"/>
   </object>
   <object id="4" x="144" y="144">
-   <polygon points="0,0 16,-16 32,0 80,0 112,-32 112,32 0,32"/>
+   <polygon points="0,0 0,-16 32,-16 32,0 80,0 112,-32 112,32 0,32"/>
   </object>
   <object id="14" x="192" y="48">
    <polygon points="0,0 0,16 16,16 16,0"/>
