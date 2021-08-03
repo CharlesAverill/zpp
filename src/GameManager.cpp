@@ -33,8 +33,15 @@ void GameManager::init_window(int width, int height) {
 }
 
 void GameManager::game_loop() {
+    int sprite_update_counter = 0;
+
     while (window->isOpen())
     {
+        sprite_update_counter++;
+        if(sprite_update_counter > 10){
+            sprite_update_counter = 0;
+        }
+
         sf::Event event;
         while (window->pollEvent(event))
         {
@@ -43,14 +50,36 @@ void GameManager::game_loop() {
             }
         }
 
-        input();
+        if(!link->lock_movement && input()){
+            break;
+        }
+
+        // Screen changes
+        if(!is_underground){
+            Vector2f link_position = link->get_position();
+            if(link_position.y - 8.f < 0){
+                screen_change("U");
+                link->set_position(Vector2f(link_position.x, 168.f));
+            } else if(link_position.y + 8.f > 176){
+                screen_change("D");
+                link->set_position(Vector2f(link_position.x, 8.f));
+            }
+        }
 
         sf::Time duration = global_clock.restart();
         MapLayer *renderLayer = current_screen->get_render_layer();
         renderLayer->update(duration);
 
+        // Drawing
         window->clear(sf::Color::Black);
         window->draw(*renderLayer);
+
+        // Draw characters and objects
+        for(Character *character : current_characters){
+            character->update_sprite(sprite_update_counter);
+            window->draw(character->get_sprite());
+        }
+
         window->draw(link->get_sprite());
         if(ENABLE_DEBUG){
             draw_collision_boxes(window, current_screen);
@@ -59,7 +88,19 @@ void GameManager::game_loop() {
     }
 }
 
-void GameManager::input() {
+int GameManager::input() {
+    // Pausing
+    if(Keyboard::isKeyPressed(Keyboard::Escape)){
+        cout << "Pause!" << endl;
+        return 1;
+    }
+    // Attacking
+    if(Keyboard::isKeyPressed(Keyboard::P)){
+        cout << "Sword attack!" << endl;
+    } else if(Keyboard::isKeyPressed(Keyboard::O)){
+        cout << "Item use!" << endl;
+    }
+
     // Movement
     string face_move;
 
@@ -80,7 +121,7 @@ void GameManager::input() {
             link->face(face_move);
         } else if(link_facing == held_direction){
             held_duration++;
-            if(held_duration > 20){
+            if(held_duration > 10){
                 held_duration = 0;
             }
             link->update_sprite(held_duration);
@@ -110,16 +151,7 @@ void GameManager::input() {
         link->is_walking = false;
     }
 
-    if(!is_underground){
-        Vector2f link_position = link->get_position();
-        if(link_position.y - 8.f < 0){
-            screen_change("U");
-            link->set_position(Vector2f(link_position.x, 168.f));
-        } else if(link_position.y + 8.f > 176){
-            screen_change("D");
-            link->set_position(Vector2f(link_position.x, 8.f));
-        }
-    }
+    return 0;
 }
 
 int GameManager::check_collision(string direction) {
@@ -168,7 +200,11 @@ void GameManager::screen_change(string direction) {
         throw std::runtime_error("Map Index out of bounds");
     }
 
+    current_characters.clear();
+
     load_screen(switch_underground);
+
+    current_characters = current_screen->get_characters();
 }
 
 void GameManager::load_screen(bool switch_underground) {

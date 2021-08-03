@@ -10,7 +10,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "Link.h"
+#include "characters/Link.h"
+#include "characters/Character.h"
+
 #include "Map.h"
 #include "GraphicsUtils.h"
 
@@ -28,13 +30,14 @@ class GameManager {
     string map_collection;
     bool is_underground;
     Vector2i *map_index;
+    vector<Character *> current_characters;
     Map *current_screen;
 
     Link *link;
     string held_direction;
     int held_duration;
 
-    void input();
+    int input();
     int check_collision(string direction);
 
     void screen_change(string direction);

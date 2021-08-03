@@ -2,11 +2,11 @@
 // Created by Charles Averill on 7/27/21.
 //
 
-#include "Link.h"
+#include "characters/Link.h"
 
 using namespace sf;
 
-Link::Link() {
+Link::Link() : Character(){
     load_textures();
     face("D");
 
@@ -15,9 +15,12 @@ Link::Link() {
 
     sprite.setPosition(0.f, 0.f);
     sprite.setOrigin(8.f, 8.f);
+
+    is_walking = false;
+    lock_movement = false;
 }
 
-Link::Link(Vector2f pos, std::string fac) {
+Link::Link(Vector2f pos, std::string fac) : Character(pos){
     load_textures();
     face(fac);
 
@@ -26,6 +29,9 @@ Link::Link(Vector2f pos, std::string fac) {
 
     sprite.setPosition(pos);
     sprite.setOrigin(8.f, 8.f);
+
+    is_walking = false;
+    lock_movement = false;
 }
 
 void Link::load_textures() {
@@ -78,6 +84,7 @@ void Link::face(std::string newFacing) {
     } else if(newFacing == "D"){
         facing = 2;
         sprite.setTexture(texture_map[0]);
+        horizontal_mirror = false;
     } else if(newFacing == "R"){
         facing = 3;
         sprite.setTexture(texture_map[2]);
@@ -133,7 +140,7 @@ void Link::set_position(Vector2f new_position) {
 
 void Link::update_sprite(int duration) {
     if(is_walking){
-        int sprite_offset = duration > 10;
+        int sprite_offset = duration > 5;
         switch(facing){
             case 0:
                 sprite.setTexture(texture_map[4 + sprite_offset]);

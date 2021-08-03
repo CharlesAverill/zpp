@@ -11,17 +11,13 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include <SFML/Window/Event.hpp>
-#include <SFML/Audio.hpp>
+#include "Character.h"
 
 using namespace sf;
 
-class Link {
+class Link : public Character {
     int facing; // 0-3 = ULDR
     bool horizontal_mirror;
-
-    std::map<int, Texture> texture_map;
-    Sprite sprite;
 
     Vector2f *last_movement;
     Vector2f *move_speed;
@@ -33,6 +29,7 @@ public:
     Link(Vector2f pos, std::string fac);
 
     bool is_walking;
+    bool lock_movement;
 
     // Getters
     Vector2f get_position();

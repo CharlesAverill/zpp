@@ -32,7 +32,9 @@ include_directories(
 
 
 
-set(PROJECT_SRC src/zpp.cpp src/Link.cpp src/GameManager.cpp src/Map.cpp src/Polygon.cpp src/GraphicsUtils.cpp)
+set(PROJECT_SRC src/zpp.cpp src/GameManager.cpp src/Map.cpp src/Polygon.cpp src/GraphicsUtils.cpp
+                src/characters/Link.cpp src/characters/Character.cpp src/characters/NPCs/Flame.cpp
+)
 
 if(WIN32)
     add_executable(${PROJECT_NAME} WIN32 ${PROJECT_SRC})

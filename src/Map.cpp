@@ -30,6 +30,14 @@ Map::Map(std::string map_path) {
                         auto object = objects[0];
                         door_gon = new Polygon(object.getName(), object.getPoints(), object.getPosition());
                     }
+                } else if(layer->getName() == "Characters"){
+                    for(const auto& object : objects){
+                        Character *temp_character;
+                        if(object.getName() == "flame"){
+                            temp_character = new Flame(object.getPosition());
+                            characters.push_back(temp_character);
+                        }
+                    }
                 }
             }
         }
@@ -48,4 +56,8 @@ std::vector<Polygon> Map::get_collision_gons() {
 
 Polygon *Map::get_door_gon() {
     return door_gon;
+}
+
+std::vector<Character *> Map::get_characters() {
+    return characters;
 }
