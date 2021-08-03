@@ -47,32 +47,6 @@ void Link::load_textures() {
     }
 }
 
-Vector2f Link::get_position() {
-    return sprite.getPosition();
-}
-
-std::string Link::get_facing() {
-    switch(facing){
-        case 0:
-            return "U";
-        case 1:
-            return "L";
-        case 2:
-            return "D";
-        case 3:
-            return "R";
-    }
-    return nullptr;
-}
-
-int Link::get_facing_int() {
-    return facing;
-}
-
-Sprite Link::get_sprite() {
-    return sprite;
-}
-
 void Link::face(std::string newFacing) {
     if(newFacing == "U"){
         facing = 0;
@@ -128,14 +102,6 @@ std::vector<Vector2f> Link::get_next_corners(std::string direction) {
     corners.push_back(Vector2f(sprite_pos.x + 6.5, sprite_pos.y + 6)); // BR
 
     return corners;
-}
-
-void Link::move(){
-    sprite.move(*last_movement);
-}
-
-void Link::set_position(Vector2f new_position) {
-    sprite.setPosition(new_position);
 }
 
 void Link::update_sprite(int duration) {

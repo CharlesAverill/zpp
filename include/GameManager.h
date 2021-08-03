@@ -10,11 +10,11 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "characters/Link.h"
-#include "characters/Character.h"
-
 #include "Map.h"
-#include "GraphicsUtils.h"
+#include "Utils.h"
+
+#include "characters/Character.h"
+#include "characters/Link.h"
 
 using namespace sf;
 using namespace std;
@@ -46,6 +46,8 @@ public:
     GameManager();
     void init_window(int width, int height);
     void game_loop();
+
+    Map *get_current_screen();
 };
 
 

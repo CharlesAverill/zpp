@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="16" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="23">
+<map version="1.2" tiledversion="1.3.5" orientation="orthogonal" renderorder="right-down" width="16" height="11" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="35">
  <tileset firstgid="1" source="../../tilesets/overworld_objects.tsx"/>
  <tileset firstgid="449" source="../../tilesets/overworld_tiles.tsx"/>
  <layer id="1" name="Ground" width="16" height="11">
@@ -52,6 +52,36 @@
    <polygon points="0,0 0,16 16,16 16,0"/>
   </object>
   <object id="22" x="80" y="80">
+   <polygon points="0,0 0,16 16,16 16,0"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="Enemies">
+  <object id="23" name="octorok" x="48" y="32">
+   <properties>
+    <property name="facing" value="left"/>
+    <property name="level" type="int" value="0"/>
+   </properties>
+   <polygon points="0,0 0,16 16,16 16,0"/>
+  </object>
+  <object id="31" name="octorok" x="64" y="96">
+   <properties>
+    <property name="facing" value="left"/>
+    <property name="level" type="int" value="0"/>
+   </properties>
+   <polygon points="0,0 0,16 16,16 16,0"/>
+  </object>
+  <object id="33" name="octorok" x="96" y="64">
+   <properties>
+    <property name="facing" value="up"/>
+    <property name="level" type="int" value="0"/>
+   </properties>
+   <polygon points="0,0 0,16 16,16 16,0"/>
+  </object>
+  <object id="34" name="octorok" x="160" y="80">
+   <properties>
+    <property name="facing" value="right"/>
+    <property name="level" type="int" value="0"/>
+   </properties>
    <polygon points="0,0 0,16 16,16 16,0"/>
   </object>
  </objectgroup>

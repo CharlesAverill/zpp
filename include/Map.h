@@ -9,7 +9,6 @@
 #include "SFMLOrthogonalLayer.hpp"
 #include "Polygon.h"
 
-#include "characters/Character.h"
 #include "characters/NPCs/Flame.h"
 
 class Map {

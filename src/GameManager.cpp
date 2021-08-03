@@ -28,7 +28,7 @@ void GameManager::init_window(int width, int height) {
     view = new View(sf::Vector2f(128.f, 88.f), sf::Vector2f(256.f, 173.f));
 
     window->setView(*view);
-    
+
     game_loop();
 }
 
@@ -222,4 +222,8 @@ void GameManager::load_screen(bool switch_underground) {
         current_screen = nullptr;
         cerr << "Screen " << map_collection + "/" << map_index->x << "_" << map_index->y << ".tmx" << endl;
     }
+}
+
+Map *GameManager::get_current_screen() {
+    return current_screen;
 }

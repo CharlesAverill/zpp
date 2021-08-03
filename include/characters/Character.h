@@ -16,27 +16,47 @@
 
 using namespace sf;
 
-enum NPC_type {
-    dialogue,
-    merchant,
-    event,
-    animated_object
+enum CharacterType {
+    DIALOGUE,
+    MERCHANT,
+    EVENT,
+    ANIMATED_OBJECT,
+    ENEMY
 };
 
 class Character {
 protected:
-    Sprite sprite;
-    NPC_type type;
+    sf::Sprite sprite;
+    CharacterType type;
 
-    std::map<int, Texture> texture_map;
+    int facing; // 0-3 = ULDR
+    bool horizontal_mirror;
+
+    sf::Vector2f *last_movement;
+    sf::Vector2f *move_speed;
+
+    std::map<int, sf::Texture> texture_map;
 
     virtual void load_textures() = 0;
-public:
-    Sprite get_sprite();
-    virtual void update_sprite(int duration) = 0;
 
     Character();
-    Character(Vector2f position);
+    Character(sf::Vector2f position);
+public:
+
+    // Getters
+    virtual std::vector<sf::Vector2f> get_next_corners(std::string direction);
+    std::string get_facing();
+    int get_facing_int();
+    sf::Sprite get_sprite();
+    sf::Vector2f get_position();
+
+    // Setters
+    void set_position(sf::Vector2f new_position);
+
+    // Control
+    virtual void update_sprite(int duration) = 0;
+    virtual void move();
+
     virtual ~Character() = default;
 };
 

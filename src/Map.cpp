@@ -3,6 +3,7 @@
 //
 
 #include "Map.h"
+#include "characters/enemies/Octorok.h"
 
 Map::Map(std::string map_path) {
     tmx::Map temp_map;
@@ -35,8 +36,25 @@ Map::Map(std::string map_path) {
                         Character *temp_character;
                         if(object.getName() == "flame"){
                             temp_character = new Flame(object.getPosition());
-                            characters.push_back(temp_character);
                         }
+                        characters.push_back(temp_character);
+                    }
+                } else if(layer->getName() == "Enemies"){
+                    for(const auto& object : objects){
+                        Enemy *temp_enemy;
+                        int level = 0;
+                        string facing = "D";
+                        for(const auto& property : object.getProperties()){
+                            if(property.getName() == "level"){
+                                level = property.getIntValue();
+                            } else if(property.getName() == "facing"){
+                                facing = property.getStringValue();
+                            }
+                        }
+                        if(object.getName() == "octorok"){
+                            temp_enemy = new Octorok(object.getPosition(), level);
+                        }
+                        characters.push_back(temp_enemy);
                     }
                 }
             }

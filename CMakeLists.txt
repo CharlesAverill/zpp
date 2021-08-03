@@ -32,8 +32,9 @@ include_directories(
 
 
 
-set(PROJECT_SRC src/zpp.cpp src/GameManager.cpp src/Map.cpp src/Polygon.cpp src/GraphicsUtils.cpp
+set(PROJECT_SRC src/zpp.cpp src/GameManager.cpp src/Map.cpp src/Polygon.cpp src/Utils.cpp
                 src/characters/Link.cpp src/characters/Character.cpp src/characters/NPCs/Flame.cpp
+                src/characters/enemies/Enemy.cpp src/characters/enemies/Octorok.cpp
 )
 
 if(WIN32)

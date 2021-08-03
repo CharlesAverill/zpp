@@ -2,7 +2,7 @@
 // Created by Charles Averill on 7/30/21.
 //
 
-#include "GraphicsUtils.h"
+#include "Utils.h"
 
 void draw_collision_boxes(RenderWindow *window, Map *current_screen){
     std::vector<Polygon> gons = current_screen->get_collision_gons();
@@ -20,4 +20,8 @@ void draw_collision_boxes(RenderWindow *window, Map *current_screen){
         convex.setFillColor(c % 2 == 0 ? Color::Green : Color::Cyan);
         window->draw(convex);
     }
+}
+
+float distance(Vector2f a, Vector2f b){
+    return abs(sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
 }
