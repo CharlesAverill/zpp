@@ -33,15 +33,17 @@ Map::Map(std::string map_path) {
                     }
                 } else if(layer->getName() == "Characters"){
                     for(const auto& object : objects){
-                        Character *temp_character;
+                        Character *temp_character = nullptr;
                         if(object.getName() == "flame"){
                             temp_character = new Flame(object.getPosition());
                         }
-                        characters.push_back(temp_character);
+                        if(temp_character){
+                            characters.push_back(temp_character);
+                        }
                     }
                 } else if(layer->getName() == "Enemies"){
                     for(const auto& object : objects){
-                        Enemy *temp_enemy;
+                        Enemy *temp_enemy = nullptr;
                         int level = 0;
                         string facing = "D";
                         for(const auto& property : object.getProperties()){
@@ -54,7 +56,9 @@ Map::Map(std::string map_path) {
                         if(object.getName() == "octorok"){
                             temp_enemy = new Octorok(object.getPosition(), level);
                         }
-                        characters.push_back(temp_enemy);
+                        if(temp_enemy){
+                            characters.push_back(temp_enemy);
+                        }
                     }
                 }
             }
