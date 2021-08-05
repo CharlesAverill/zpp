@@ -27,9 +27,11 @@ void GameManager::init_window(int width, int height) {
     window = new RenderWindow(sf::VideoMode(WIDTH, HEIGHT), "Zelda++");
     window->setFramerateLimit(60);
 
-    view = new View(sf::Vector2f(128.f, 68.f), sf::Vector2f(256.f, 216.f));
+    view = new View(sf::Vector2f(128.f, 64.f), sf::Vector2f(280.f, 240.f));
 
     window->setView(*view);
+
+    hud = new HUD();
 
     game_loop();
 }
@@ -73,8 +75,15 @@ void GameManager::game_loop() {
         renderLayer->update(duration);
 
         // Drawing
-        window->clear(sf::Color::Black);
+        if(ENABLE_DEBUG){
+            window->clear(Color::Magenta);
+        } else {
+            window->clear(Color::Black);
+        }
         window->draw(*renderLayer);
+
+        // Draw HUD
+        hud->draw_hud(window, link);
 
         // Draw characters and objects
         for(Character *character : current_characters){
@@ -240,4 +249,8 @@ void GameManager::load_screen(bool switch_underground) {
 
 Map *GameManager::get_current_screen() {
     return current_screen;
+}
+
+RenderWindow *GameManager::get_render_window() {
+    return window;
 }

@@ -10,6 +10,9 @@ Link::Link() : Character(){
     load_textures();
     face("D");
 
+    health = 3;
+    max_health = 6;
+
     last_movement = new Vector2f(0.f, 0.f);
     move_speed = new Vector2f(1.4f, 1.4f);
 
@@ -23,6 +26,9 @@ Link::Link() : Character(){
 Link::Link(Vector2f pos, std::string fac) : Character(pos){
     load_textures();
     face(fac);
+
+    health = 3;
+    max_health = 6;
 
     last_movement = new Vector2f(0.f, 0.f);
     move_speed = new Vector2f(1.4f, 1.4f);
@@ -124,4 +130,18 @@ void Link::update_sprite(int duration) {
                 break;
         }
     }
+}
+
+int Link::mod_health(int delta) {
+    health += delta;
+    if(health > max_health){
+        health = max_health;
+    } else if(health <= 0){
+        return -1;
+    }
+    return health;
+}
+
+int Link::get_max_health() {
+    return max_health;
 }

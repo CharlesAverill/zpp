@@ -12,7 +12,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/ConvexShape.hpp>
 
-#include "Polygon.h"
+#include "world/Polygon.h"
 #include "GameManager.h"
 
 using namespace sf;

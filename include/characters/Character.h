@@ -32,6 +32,8 @@ protected:
     int facing; // 0-3 = ULDR
     bool horizontal_mirror;
 
+    int health;
+
     Vector2f *last_movement;
     Vector2f *move_speed;
 
@@ -48,11 +50,15 @@ public:
     virtual std::vector<sf::Vector2f> get_next_corners(std::string direction);
     std::string get_facing();
     int get_facing_int();
+
     sf::Sprite get_sprite();
     sf::Vector2f get_position();
+
+    int get_health();
     CharacterType get_type();
 
     // Setters
+    int mod_health(int delta);
     void set_position(sf::Vector2f new_position);
 
     // Control

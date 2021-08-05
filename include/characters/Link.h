@@ -16,6 +16,7 @@
 using namespace sf;
 
 class Link : public Character {
+    int max_health;
     void load_textures();
 public:
     // Constructors
@@ -24,6 +25,9 @@ public:
 
     bool is_walking;
     bool lock_movement;
+
+    int get_max_health();
+    int mod_health(int delta);
 
     // Control
     void face(std::string new_facing);

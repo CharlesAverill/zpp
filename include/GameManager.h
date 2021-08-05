@@ -10,7 +10,9 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include "Map.h"
+#include "world/Map.h"
+
+#include "HUD.h"
 #include "Utils.h"
 
 #include "characters/Character.h"
@@ -26,6 +28,8 @@ class GameManager {
 
     RenderWindow *window;
     View *view;
+
+    HUD *hud;
 
     string map_collection;
     bool is_underground;
@@ -48,6 +52,7 @@ public:
     void game_loop();
 
     Map *get_current_screen();
+    RenderWindow *get_render_window();
 };
 
 

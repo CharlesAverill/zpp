@@ -2,7 +2,7 @@
 // Created by Charles Averill on 7/28/21.
 //
 
-#include "Map.h"
+#include "world/Map.h"
 #include "characters/enemies/Octorok.h"
 
 Map::Map(std::string map_path) {

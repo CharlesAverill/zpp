@@ -24,7 +24,6 @@ class Enemy : public Character {
 protected:
     EnemyStateMachine state;
 
-    int health;
     int level;
 
     int idle_frames;

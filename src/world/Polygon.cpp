@@ -2,7 +2,7 @@
 // Created by Charles Averill on 7/28/21.
 //
 
-#include "Polygon.h"
+#include "world/Polygon.h"
 
 Polygon::Polygon(string n, vector<tmx::Vector2f> points_v, tmx::Vector2f pos) {
     name = n;

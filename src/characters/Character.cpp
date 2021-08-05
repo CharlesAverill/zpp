@@ -92,3 +92,12 @@ void Character::move() {
 CharacterType Character::get_type() {
     return type;
 }
+
+int Character::get_health() {
+    return health;
+}
+
+int Character::mod_health(int delta) {
+    health += delta;
+    return health;
+}
