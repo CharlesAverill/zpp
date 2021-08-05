@@ -12,14 +12,19 @@ Enemy::Enemy() {
 
     health = 3;
     level = 0;
+    idle_frames = 0;
+    sprite_offset = 0;
+
+    is_moving = false;
 }
 
-Enemy::Enemy(Vector2f position, int lvl) : Character(position) {
+Enemy::Enemy(tmx::Vector2f position, int lvl) : Character(position) {
     type = CharacterType::ENEMY;
-
-    sprite.setPosition(position);
-    sprite.setOrigin(8.f, 8.f);
 
     health = 3;
     level = lvl;
+    idle_frames = 0;
+    sprite_offset = 0;
+
+    is_moving = false;
 }

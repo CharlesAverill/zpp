@@ -11,7 +11,12 @@ Character::Character() {
     sprite.setOrigin(8.f, 8.f);
 }
 
-Character::Character(Vector2f position) {
+Character::Character(tmx::Vector2f position) {
+    sprite.setPosition(position.x, position.y);
+    sprite.setOrigin(8.f, 8.f);
+}
+
+Character::Character(sf::Vector2f position) {
     sprite.setPosition(position);
     sprite.setOrigin(8.f, 8.f);
 }
@@ -38,14 +43,17 @@ std::vector<Vector2f> Character::get_next_corners(std::string direction) {
         case 3: // Right
             last_movement = new Vector2f(move_speed->x, 0);
             break;
+        default: // Up
+            last_movement = new Vector2f(0, -1 * move_speed->y);
+            break;
     }
 
     Vector2f sprite_pos = *last_movement + sprite.getPosition();
 
-    corners.push_back(Vector2f(sprite_pos.x - 8, sprite_pos.y - 8)); // TL
-    corners.push_back(Vector2f(sprite_pos.x + 8, sprite_pos.y - 8)); // TR
-    corners.push_back(Vector2f(sprite_pos.x - 8, sprite_pos.y + 8)); // BL
-    corners.push_back(Vector2f(sprite_pos.x + 8, sprite_pos.y + 8)); // BR
+    corners.push_back(Vector2f(sprite_pos.x - 7.8f, sprite_pos.y - 7.8f)); // TL
+    corners.push_back(Vector2f(sprite_pos.x + 7.8f, sprite_pos.y - 7.8f)); // TR
+    corners.push_back(Vector2f(sprite_pos.x - 7.8f, sprite_pos.y + 7.8f)); // BL
+    corners.push_back(Vector2f(sprite_pos.x + 7.8f, sprite_pos.y + 7.8f)); // BR
 
     return corners;
 }
@@ -60,8 +68,9 @@ std::string Character::get_facing() {
             return "D";
         case 3:
             return "R";
+        default:
+            return "U";
     }
-    return nullptr;
 }
 
 int Character::get_facing_int() {
@@ -78,4 +87,8 @@ void Character::set_position(Vector2f new_position) {
 
 void Character::move() {
     sprite.move(*last_movement);
+}
+
+CharacterType Character::get_type() {
+    return type;
 }

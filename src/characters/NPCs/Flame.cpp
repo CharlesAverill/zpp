@@ -8,6 +8,8 @@ Flame::Flame(tmx::Vector2f pos) {
     type = CharacterType::ANIMATED_OBJECT;
     load_textures();
 
+    move_speed = new Vector2f(0, 0);
+
     sprite.setTexture(texture_map[0]);
     sprite.setPosition(pos.x, pos.y);
 

@@ -27,8 +27,12 @@ protected:
     int health;
     int level;
 
+    int idle_frames;
+    int sprite_offset;
+    bool is_moving;
+
     Enemy();
-    Enemy(Vector2f position, int lvl);
+    Enemy(tmx::Vector2f position, int lvl);
 public:
     virtual void step_ai(GameManager *gm) = 0;
 };

@@ -3,6 +3,8 @@
 //
 
 #include "GameManager.h"
+#include "characters/enemies/Enemy.h"
+#include "SFML/Graphics/CircleShape.hpp"
 
 const string tilemaps_prefix = "../assets/tilemaps/";
 
@@ -76,8 +78,20 @@ void GameManager::game_loop() {
 
         // Draw characters and objects
         for(Character *character : current_characters){
+            if(character->get_type() == CharacterType::ENEMY){
+                ((Enemy *)character)->step_ai(this);
+            }
             character->update_sprite(sprite_update_counter);
             window->draw(character->get_sprite());
+
+            if(ENABLE_DEBUG){
+                for(Vector2f corner : character->get_next_corners(character->get_facing())){
+                    CircleShape shape(.5f);
+                    shape.setPosition(corner);
+                    shape.setFillColor(Color::Cyan);
+                    window->draw(shape);
+                }
+            }
         }
 
         window->draw(link->get_sprite());

@@ -32,14 +32,15 @@ protected:
     int facing; // 0-3 = ULDR
     bool horizontal_mirror;
 
-    sf::Vector2f *last_movement;
-    sf::Vector2f *move_speed;
+    Vector2f *last_movement;
+    Vector2f *move_speed;
 
     std::map<int, sf::Texture> texture_map;
 
     virtual void load_textures() = 0;
 
     Character();
+    Character(tmx::Vector2f position);
     Character(sf::Vector2f position);
 public:
 
@@ -49,6 +50,7 @@ public:
     int get_facing_int();
     sf::Sprite get_sprite();
     sf::Vector2f get_position();
+    CharacterType get_type();
 
     // Setters
     void set_position(sf::Vector2f new_position);
